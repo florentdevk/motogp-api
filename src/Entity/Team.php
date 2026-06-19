@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TeamRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
@@ -22,6 +24,12 @@ class Team
     #[ORM\Column]
     private int $foundedYear;
 
+    /**
+     * @var Collection<int, Rider>
+     */
+    #[ORM\OneToMany(targetEntity: Rider::class, mappedBy: 'team')]
+    private Collection $riders;
+
     public function __construct(
         string $name,
         string $country,
@@ -30,6 +38,7 @@ class Team
         $this->name = $name;
         $this->country = $country;
         $this->foundedYear = $foundedYear;
+        $this->riders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +76,24 @@ class Team
     public function setFoundedYear(int $foundedYear): static
     {
         $this->foundedYear = $foundedYear;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rider>
+     */
+    public function getRiders(): Collection
+    {
+        return $this->riders;
+    }
+
+    public function addRider(Rider $rider): static
+    {
+        if (!$this->riders->contains($rider)) {
+            $this->riders->add($rider);
+            $rider->setTeam($this);
+        }
+
         return $this;
     }
 }

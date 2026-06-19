@@ -26,16 +26,22 @@ class Rider
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $birthdate;
 
+    #[ORM\ManyToOne(inversedBy: 'riders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Team $team;
+
     public function __construct(
         string $name,
         string $nationality,
         int $number,
         \DateTimeImmutable $birthdate,
+        Team $team,
     ) {
         $this->name = $name;
         $this->nationality = $nationality;
         $this->number = $number;
         $this->birthdate = $birthdate;
+        $this->team = $team;
     }
 
     public function getId(): ?int
@@ -84,6 +90,18 @@ class Rider
     public function setBirthdate(\DateTimeImmutable $birthdate): static
     {
         $this->birthdate = $birthdate;
+        return $this;
+    }
+
+    public function getTeam(): Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(Team $team): static
+    {
+        $this->team = $team;
+
         return $this;
     }
 }
