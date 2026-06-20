@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RaceResultRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: RaceResultRepository::class)]
@@ -15,12 +16,18 @@ class RaceResult
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
+    #[Assert\Range(min: 1, max: 22)]
     #[ORM\Column]
     private int $position;
 
+    #[Assert\NotNull]
+    #[Assert\PositiveOrZero]
     #[ORM\Column]
     private float $points;
 
+    #[Assert\NotNull]
     #[ORM\Column]
     private bool $fastestLap;
 

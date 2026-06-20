@@ -40,4 +40,25 @@ final class RiderTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(404);
     }
+
+    public function testPostRiderWithInvalidDataReturns422(): void
+    {
+        $client = static::createClient();
+        $client->request(
+            'POST',
+            '/api/riders',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/ld+json'],
+            json_encode([
+                'name' => '',
+                'nationality' => 'Spanish',
+                'number' => -5,
+                'birthdate' => '1993-02-17',
+                'team' => '/api/teams/1',
+            ])
+        );
+
+        $this->assertResponseStatusCodeSame(422);
+    }
 }
