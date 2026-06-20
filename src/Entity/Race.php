@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
@@ -18,12 +19,17 @@ class Race
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[ORM\Column(length: 255)]
     private string $name;
 
+    #[Assert\NotNull]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $date;
 
+    #[Assert\NotNull]
+    #[Assert\Range(min: 2000, max: 2100)]
     #[ORM\Column]
     private int $season;
 

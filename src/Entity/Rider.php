@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: RiderRepository::class)]
@@ -18,15 +19,23 @@ class Rider
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[ORM\Column(length: 255)]
     private string $name;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[ORM\Column(length: 255)]
     private string $nationality;
 
+    #[Assert\Positive]
+    #[Assert\Range(min: 1, max: 99)]
     #[ORM\Column]
     private int $number;
 
+    #[Assert\NotNull]
+    #[Assert\LessThanOrEqual('today')]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $birthdate;
 

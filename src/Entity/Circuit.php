@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: CircuitRepository::class)]
@@ -17,15 +18,25 @@ class Circuit
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[ORM\Column(length: 255)]
     private string $name;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[ORM\Column(length: 255)]
     private string $country;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
+    #[Assert\LessThanOrEqual(value: 10.0, message: 'La longueur ne peut pas dépasser 10 km.')]
     #[ORM\Column]
     private float $length;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
+    #[Assert\Range(min: 1, max: 100)]
     #[ORM\Column]
     private int $laps;
 
