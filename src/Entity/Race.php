@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,6 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: [
+    'name' => 'partial',
+    'circuit' => 'exact',
+])]
+#[ApiFilter(RangeFilter::class, properties: ['season'])]
+#[ApiFilter(OrderFilter::class, properties: ['date', 'season', 'name'])]
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
 class Race
 {
