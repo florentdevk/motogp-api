@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CircuitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CircuitRepository::class)]
@@ -25,6 +27,12 @@ class Circuit
     #[ORM\Column]
     private int $laps;
 
+    /**
+     * @var Collection<int, Race>
+     */
+    #[ORM\OneToMany(targetEntity: Race::class, mappedBy: 'circuit')]
+    private Collection $races;
+
     public function __construct(
         string $name,
         string $country,
@@ -35,6 +43,7 @@ class Circuit
         $this->country = $country;
         $this->length = $length;
         $this->laps = $laps;
+        $this->races = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +92,24 @@ class Circuit
     public function setLaps(int $laps): static
     {
         $this->laps = $laps;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Race>
+     */
+    public function getRaces(): Collection
+    {
+        return $this->races;
+    }
+
+    public function addRace(Race $race): static
+    {
+        if (!$this->races->contains($race)) {
+            $this->races->add($race);
+            $race->setCircuit($this);
+        }
+
         return $this;
     }
 }
