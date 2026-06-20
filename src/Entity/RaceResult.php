@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RaceResultRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
@@ -86,30 +86,35 @@ class RaceResult
     public function setPosition(int $position): static
     {
         $this->position = $position;
+
         return $this;
     }
 
     public function setPoints(float $points): static
     {
         $this->points = $points;
+
         return $this;
     }
 
     public function setFastestLap(bool $fastestLap): static
     {
         $this->fastestLap = $fastestLap;
+
         return $this;
     }
 
     public function setRider(Rider $rider): static
     {
         $this->rider = $rider;
+
         return $this;
     }
 
     public function setRace(Race $race): static
     {
         $this->race = $race;
+
         return $this;
     }
 }

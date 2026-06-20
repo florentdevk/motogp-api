@@ -40,6 +40,12 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
+      - name: PHP CS Fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - name: PHPStan
+        run: vendor/bin/phpstan analyse --memory-limit=512M
+
       - name: Check Symfony
         run: php bin/console about --env=test
 

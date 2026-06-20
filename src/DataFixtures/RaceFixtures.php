@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Race;
 use App\Entity\Circuit;
+use App\Entity\Race;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -49,7 +49,7 @@ class RaceFixtures extends Fixture implements DependentFixtureInterface
             );
 
             $manager->persist($race);
-            $this->addReference('race_' . $data['name'], $race);
+            $this->addReference('race_'.$data['name'], $race);
         }
 
         $manager->flush();

@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
@@ -73,18 +73,21 @@ class Team
     public function setName(string $name): static
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setCountry(string $country): static
     {
         $this->country = $country;
+
         return $this;
     }
 
     public function setFoundedYear(int $foundedYear): static
     {
         $this->foundedYear = $foundedYear;
+
         return $this;
     }
 

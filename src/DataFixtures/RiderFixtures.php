@@ -61,7 +61,7 @@ class RiderFixtures extends Fixture implements DependentFixtureInterface
             );
 
             $manager->persist($rider);
-            $this->addReference('rider_' . $data['number'], $rider);
+            $this->addReference('rider_'.$data['number'], $rider);
         }
 
         $manager->flush();
