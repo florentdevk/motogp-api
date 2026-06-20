@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CircuitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
@@ -87,24 +87,28 @@ class Circuit
     public function setName(string $name): static
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setCountry(string $country): static
     {
         $this->country = $country;
+
         return $this;
     }
 
     public function setLength(float $length): static
     {
         $this->length = $length;
+
         return $this;
     }
 
     public function setLaps(int $laps): static
     {
         $this->laps = $laps;
+
         return $this;
     }
 

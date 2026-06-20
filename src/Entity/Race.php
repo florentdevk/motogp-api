@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
@@ -84,24 +84,28 @@ class Race
     public function setName(string $name): static
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setDate(\DateTimeImmutable $date): static
     {
         $this->date = $date;
+
         return $this;
     }
 
     public function setSeason(int $season): static
     {
         $this->season = $season;
+
         return $this;
     }
 
     public function setCircuit(Circuit $circuit): static
     {
         $this->circuit = $circuit;
+
         return $this;
     }
 

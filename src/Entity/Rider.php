@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RiderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource]
@@ -105,30 +105,35 @@ class Rider
     public function setName(string $name): static
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setNationality(string $nationality): static
     {
         $this->nationality = $nationality;
+
         return $this;
     }
 
     public function setNumber(int $number): static
     {
         $this->number = $number;
+
         return $this;
     }
 
     public function setBirthdate(\DateTimeImmutable $birthdate): static
     {
         $this->birthdate = $birthdate;
+
         return $this;
     }
 
     public function setTeam(Team $team): static
     {
         $this->team = $team;
+
         return $this;
     }
 
