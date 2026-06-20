@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RaceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +29,12 @@ class Race
     #[ORM\JoinColumn(nullable: false)]
     private Circuit $circuit;
 
+    /**
+     * @var Collection<int, RaceResult>
+     */
+    #[ORM\OneToMany(targetEntity: RaceResult::class, mappedBy: 'race')]
+    private Collection $raceResults;
+
     public function __construct(
         string $name,
         \DateTimeImmutable $date,
@@ -37,6 +45,7 @@ class Race
         $this->date = $date;
         $this->season = $season;
         $this->circuit = $circuit;
+        $this->raceResults = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +94,24 @@ class Race
     public function setCircuit(Circuit $circuit): static
     {
         $this->circuit = $circuit;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RaceResult>
+     */
+    public function getRaceResults(): Collection
+    {
+        return $this->raceResults;
+    }
+
+    public function addRaceResult(RaceResult $raceResult): static
+    {
+        if (!$this->raceResults->contains($raceResult)) {
+            $this->raceResults->add($raceResult);
+            $raceResult->setRace($this);
+        }
+
         return $this;
     }
 }
